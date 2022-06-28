@@ -1,0 +1,30 @@
+{
+  "name": "auth-now",
+  "version": "1.0.0",
+  "description": "world easiest authentication",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dEvFiRm-Ltd/auth-sdk.git"
+  },
+  "keywords": [
+    "auth",
+    "authentication"
+  ],
+  "author": "devFirm",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dEvFiRm-Ltd/auth-sdk/issues"
+  },
+  "homepage": "https://github.com/dEvFiRm-Ltd/auth-sdk#readme",
+  "dependencies": {
+    "axios": "^0.27.2",
+    "bcrypt": "^5.0.1",
+    "express": "^4.18.1",
+    "googleapis": "^104.0.0",
+    "jsonwebtoken": "^8.5.1"
+  }
+}
