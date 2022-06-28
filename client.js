@@ -44,7 +44,7 @@ module.exports = class Auth {
     }
 
     userInfo() {
-        console.log('token',this.token);
+        // console.log('token',this.token);
         return new Promise(async (resolve, reject) => {
             let refreshToken;
             const firstLogin = localStorage.getItem('firstLogin')
@@ -118,12 +118,11 @@ module.exports = class Auth {
                 document.cookie = `refreshtoken=${res.data.refreshtoken}`; //res or response carefully
                 resolve(res.data)
             } catch (err) {
-                console.log(err);
+                // console.log(err);
                 reject(err)
             }
         })
     }
-    // TODO: add user delete
 
 
 
@@ -136,6 +135,7 @@ module.exports = class Auth {
             // this.token = 'Please login';
             // this.user = 'User not Authorize';
             // return new Promise.resolve('logout successfully')
+            return 'logout successfully'
         
         
     }

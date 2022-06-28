@@ -1,15 +1,16 @@
 const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken')
+const jwt = require('jsonwebtoken');
+const {createRefreshToken,createAccessToken ,validateEmail} = require('../utils/tokenCreate')
 
 //without email verification registration
 exports.userRegisterController = async(req,res,next)=>{
-    console.log('model in controller',req.app.locals.userModel); 
+    // console.log('model in controller',req.app.locals.userModel); 
     const Users = req.app.locals.userModel;
     const {email,password,name} = req.body;
-    console.log(req.body);
+    // console.log(req.body);
    try {
-        // if(!validateEmail(email))return res.status(400).json({msg: "Invalid emails."})
-        console.log('here');
+        if(!validateEmail(email)) return res.status(400).json({msg: "Invalid emails."});
+  
          const user = await Users.findOne({email});
          if(user){
               return res.status(400).json({
@@ -59,10 +60,10 @@ exports.userLoginController = async (req, res) => {
     }
 } 
 exports.getAccessToken = async(req, res) => {
+    const logs = req.app.locals.logs;
     try {
         // const rf_token = req.cookies?.refreshtoken
         const rf_token =req.body.refreshToken
-        // console.log(rf_token);
         if(!rf_token) return res.status(400).json({msg: "Please login now!"})
 
         jwt.verify(rf_token, req.app.locals.refreshTokenSecret, (err, user) => {
@@ -72,30 +73,11 @@ exports.getAccessToken = async(req, res) => {
             res.json({access_token})
         })
     } catch (err) {
-        console.log(err);
+        // console.log(err);
         return res.status(500).json({msg: err.message})
     }
-},
-exports.googleLogin= async(req, res) => {
-
 }
 
 
 
-
-function validateEmail(email) {
-    const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(email);
-}
-
-const createActivationToken = (payload) => {
-    return jwt.sign(payload, req.app.locals.activationTokenSecret, {expiresIn: '5m'})
-}
-
-const createAccessToken = (payload,token) => {
-    return jwt.sign(payload, token, {expiresIn: '15m'})
-}
-
-const createRefreshToken = (payload,refreshToken) => {
-    return jwt.sign(payload, refreshToken, {expiresIn: '7d'})
-}       
+       
