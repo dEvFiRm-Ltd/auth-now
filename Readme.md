@@ -1,9 +1,6 @@
 # Auth-Now
-### The world Easist authentication package
+### The world easiest authentication package
 
-```js
-
-```
 
 ## Installation
 
