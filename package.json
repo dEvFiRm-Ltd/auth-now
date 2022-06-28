@@ -1,6 +1,6 @@
 {
   "name": "auth-now",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "world easiest authentication",
   "main": "index.js",
   "scripts": {
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/dEvFiRm-Ltd/auth-sdk.git"
+    "url": "git@github.com:dEvFiRm-Ltd/auth-now.git"
   },
   "keywords": [
     "auth",
@@ -17,9 +17,9 @@
   "author": "devFirm",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/dEvFiRm-Ltd/auth-sdk/issues"
+    "url": "https://github.com/dEvFiRm-Ltd/auth-now/issues"
   },
-  "homepage": "https://github.com/dEvFiRm-Ltd/auth-sdk#readme",
+  "homepage": "https://github.com/dEvFiRm-Ltd/auth-now#readme",
   "dependencies": {
     "axios": "^0.27.2",
     "bcrypt": "^5.0.1",
