@@ -80,9 +80,7 @@ module.exports = model('User',userSchema);
 npm i mongoose  // must install it
 ```
 ```js
-const express = require('express');
-const app = express();
-const mongoose = require('mongoose');
+const app = require('express')();
 const Auth = require('auth-now');
 
 const auth = new Auth({
@@ -106,6 +104,97 @@ app.listen(3000,()=>{
 
 
 # Forntend 
+
+again install the packag in forntend
+> Note: `again install the packag in fornten`.
+### `configuration`
+```js
+import Auth from 'auth-sdk/client'
+
+const auth = new Auth({
+    clientUrl:'http://exampole.com'
+})
+
+export default auth;
+```
+### All function:
+1.`userRegistration(email,password,name)`
+2.`loginWithEmailPassword(email,password)`
+3.`userInfo()`
+4.`loginWithGoogle(response)`
+5.`loginWithFacebook(response)`
+6.`logout()`
+
+### some veriable:
+1.`clientUrl`
+2.`token`
+3.`user`
+### 1.`userRegistration(email,password,name)`
+This function for user create or registration .
+```js
+  const registerUser = async()=>{
+        try {
+          let res = await auth.userRegistration(email,password)
+        console.log(res);
+        } catch (err) {
+          console.log(err.response.data);
+          
+        }
+    }
+```
+
+### 2.`loginWithEmailPassword(email,password)`
+```js
+ const customLogin = async()=>{
+      try {
+        let res = await auth.loginWithEmailPassword(email,password)
+        console.log(res);
+      } catch (err) {
+        console.log(err.response.data);
+        }
+    }
+```
+### 3.`userInfo()`
+```js
+ const getUserData = async()=>{
+      try {
+        let res = await auth.userInfo();
+        console.log('user',res);
+        console.log('all',auth);
+      } catch (err) {
+        console.log(err.response.data);
+        }
+    }
+```
+### 4.`loginWithGoogle(response)`
+```js
+const responseGoogle = async(response)=>{
+      try {
+        let res = await auth.loginWithGoogle(response)
+        console.log(res);
+        
+      } catch (error) {
+        console.log(error.response.data);
+      }
+    }
+```
+### 5.`loginWithFacebook(response)`
+```js
+const responseFacebook = async(response)=>{
+      try {
+        let res = await auth.loginWithFacebook(response)
+        console.log(res);
+        
+      } catch (error) {
+        console.log(error.response.data);
+     
+```
+### 6.`logout()`
+```js
+const logout =async ()=>{
+   auth.logout();
+}
+```
 
 
 
