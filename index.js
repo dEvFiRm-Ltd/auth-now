@@ -1,4 +1,7 @@
 const router = require('./router');
+const user = require('./middleware/auth');
+const admin = require('./middleware/authAdmin');
+const {userRegistration} = require('./controllers/authController')
 module.exports = class Config {
     constructor({
         model,
@@ -12,21 +15,21 @@ module.exports = class Config {
         this.router = function (app) {
             // user model
             app.locals.userModel = model;
+            // for social
             app.locals.googleClientID = googleClientID;
             app.locals.googleClientSecret = googleClientSecret;
             app.locals.facebookAppID = facebookAppID;
             app.locals.facebookAppSecret = facebookAppSecret;
-
             // token secret
             app.locals.accessTokenSecret = accessTokenSecret;
             app.locals.refreshTokenSecret = refreshTokenSecret;
 
-
             return router;
         };
-        this.userRegister = function(){
-            console.log('help');
-            console.log('register');
-        }
+        this.userRegister = userRegistration;
+        this.authUser = user;
+        this.adminUser = admin;
     }
 }
+
+//password error workings
