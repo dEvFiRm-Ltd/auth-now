@@ -12,7 +12,10 @@
   },
   "keywords": [
     "auth",
-    "authentication"
+    "authentication",
+    "auth-now",
+    "loginWithGoogle",
+    "loginFacebook"
   ],
   "author": "devFirm",
   "license": "ISC",
@@ -23,7 +26,6 @@
   "dependencies": {
     "axios": "^0.27.2",
     "bcrypt": "^5.0.1",
-    "express": "^4.18.1",
     "googleapis": "^104.0.0",
     "jsonwebtoken": "^8.5.1"
   }
