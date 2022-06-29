@@ -21,16 +21,16 @@ $ npm i auth-now
 ```
 ## Features
 
- - backend authentication just 3 stape
+ - backend authentication just 3 stapes
  - Custom create user(email and password)
  - Custom login
  - Login with Google 
  - Login with Facebook
  - Admin check
  - Get user info
- - Logout funtionality
+ - Logout functionality
 
-> Note: `mongoose cors ` is required for useing `auth-now`.
+> Note: `mongoose cors ` is required for using `auth-now`.
 
 ## Crate a user mode
 ### User.js(mongoose model)
@@ -75,7 +75,7 @@ const userSchema = new Schema({
 module.exports = model('User',userSchema);
 ```
 
-## Backend Configaration
+## Backend Configuration
 ```js
 npm i mongoose  // must install it
 ```
@@ -102,12 +102,16 @@ app.listen(3000,()=>{
 });
 ```
 
-[test](http://locaolhost:3000)
-# Forntend 
+# Middleware 
+```js
+const {authUser,authAdmin} = auth
+```  
 
-again install the packag in forntend
-> Note: again install the packag in fornten.
-### `configuration`
+# Frontend  
+
+again install the package in frontend
+> Note: again install the package in frontend.
+### configuration
 ```js
 import Auth from 'auth-sdk/client'
 
@@ -125,7 +129,7 @@ export default auth;
 5.loginWithFacebook(response)
 6.logout()
 
-### some veriable:
+### some veritable:
 1.`clientUrl`
 2.`token`
 3.`user`
