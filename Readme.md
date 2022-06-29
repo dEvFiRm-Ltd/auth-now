@@ -102,11 +102,11 @@ app.listen(3000,()=>{
 });
 ```
 
-
+[test](http://locaolhost:3000)
 # Forntend 
 
 again install the packag in forntend
-> Note: `again install the packag in fornten`.
+> Note: again install the packag in fornten.
 ### `configuration`
 ```js
 import Auth from 'auth-sdk/client'
@@ -118,18 +118,18 @@ const auth = new Auth({
 export default auth;
 ```
 ### All function:
-1.`userRegistration(email,password,name)`
-2.`loginWithEmailPassword(email,password)`
-3.`userInfo()`
-4.`loginWithGoogle(response)`
-5.`loginWithFacebook(response)`
-6.`logout()`
+1.userRegistration(email,password,name)
+2.loginWithEmailPassword(email,password)
+3.userInfo()
+4.loginWithGoogle(response)
+5.loginWithFacebook(response)
+6.logout()
 
 ### some veriable:
 1.`clientUrl`
 2.`token`
 3.`user`
-### 1.`userRegistration(email,password,name)`
+### 1.userRegistration(email,password,name)
 This function for user create or registration .
 ```js
   const registerUser = async()=>{
@@ -143,7 +143,7 @@ This function for user create or registration .
     }
 ```
 
-### 2.`loginWithEmailPassword(email,password)`
+### 2.loginWithEmailPassword(email,password)
 ```js
  const customLogin = async()=>{
       try {
@@ -154,7 +154,7 @@ This function for user create or registration .
         }
     }
 ```
-### 3.`userInfo()`
+### 3.userInfo()
 ```js
  const getUserData = async()=>{
       try {
@@ -166,7 +166,7 @@ This function for user create or registration .
         }
     }
 ```
-### 4.`loginWithGoogle(response)`
+### 4.loginWithGoogle(response)
 ```js
 const responseGoogle = async(response)=>{
       try {
@@ -178,7 +178,7 @@ const responseGoogle = async(response)=>{
       }
     }
 ```
-### 5.`loginWithFacebook(response)`
+### 5.loginWithFacebook(response)
 ```js
 const responseFacebook = async(response)=>{
       try {
@@ -189,7 +189,7 @@ const responseFacebook = async(response)=>{
         console.log(error.response.data);
      
 ```
-### 6.`logout()`
+### 6.logout()
 ```js
 const logout =async ()=>{
    auth.logout();
