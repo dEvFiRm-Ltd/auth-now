@@ -28,7 +28,7 @@ module.exports = class Config {
         };
         this.userRegister = userRegistration;
         this.authUser = user;
-        this.adminUser = admin;
+        this.authAdmin = admin;
     }
 }
 
