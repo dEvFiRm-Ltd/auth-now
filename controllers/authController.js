@@ -22,7 +22,9 @@ exports.userRegisterController = async(req,res,next)=>{
                 password: await bcrypt.hash(password,10),
                 name:name || email.split('@')[0]
             });
-            await newUser.save();
+            req.body.password= await bcrypt.hash(password,10),
+            // await newUser.save();
+            await Users.create(req.body);
             res.status(201).json({
                 status:200,
                 message:'User created successfully'
