@@ -42,10 +42,10 @@ exports.userLoginController = async (req, res) => {
     try {
         const {email, password} = req.body
         const user = await Users.findOne({email})
-        if(!user) return res.status(400).json({msg: "This email does not exist."})
+        if(!user) return res.status(400).json({msg: "Invalid Credentials"})
 
         const isMatch = await bcrypt.compare(password, user.password)
-        if(!isMatch) return res.status(400).json({msg: "Password is incorrect."})
+        if(!isMatch) return res.status(400).json({msg: "Invalid Credentials"})
 
         const refresh_token = createRefreshToken({id: user._id}, req.app.locals.refreshTokenSecret)
         res.cookie('refreshtoken', refresh_token, 
