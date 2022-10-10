@@ -17,17 +17,18 @@ exports.userRegisterController = async(req,res,next)=>{
                 message:'User already exists'
               });
          }
-            const newUser = new Users({
-                email,
-                password: await bcrypt.hash(password,10),
-                name:name || email.split('@')[0]
-            });
-            req.body.password= await bcrypt.hash(password,10),
+            // const newUser = new Users({
+            //     email,
+            //     password: await bcrypt.hash(password,10),
+            //     name:name || email.split('@')[0]
+            // });
+            req.body.password= await bcrypt.hash(password,10);
             // await newUser.save();
-            await Users.create(req.body);
+            const newUser =   await Users.create(req.body);
             res.status(201).json({
                 status:200,
-                message:'User created successfully'
+                message:'User created successfully',
+                userId:newUser._id
             });
 
     
