@@ -1,6 +1,6 @@
 {
   "name": "auth-now",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "world easiest authentication",
   "main": "index.js",
   "scripts": {

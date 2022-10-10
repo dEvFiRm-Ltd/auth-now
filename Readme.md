@@ -113,7 +113,7 @@ again install the package in frontend
 > Note: again install the package in frontend.
 ### configuration
 ```js
-import Auth from 'auth-sdk/client'
+import Auth from 'auth-now/client'
 
 const auth = new Auth({
     clientUrl:'http://exampole.com'
@@ -138,13 +138,19 @@ This function for user create or registration .
 ```js
   const registerUser = async()=>{
         try {
-          let res = await auth.userRegistration(email,password)
+          let res = await auth.userRegistration({email,password}) //and you can add more fields by  this object pattern  just on remake this fields are also have to user model  
         console.log(res);
         } catch (err) {
           console.log(err.response.data);
           
         }
     }
+```
+
+***you can add more fields by  this object pattern  just on remake this fields are also have to user model
+
+```js
+    let res = await auth.userRegistration({email,password,firstName, lastName ,....ip,.. })
 ```
 
 ### 2.loginWithEmailPassword(email,password)
