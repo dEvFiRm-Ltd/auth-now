@@ -9,14 +9,9 @@ module.exports = class Auth {
     }
 
     userRegistration(body) {
-        console.log('body',body);
+        // console.log('body',body);
         return new Promise(async (resolve, reject) => {
             try {
-                // let res = await axios.post(`${this.clientUrl}/user/registration`, {
-                //     email,
-                //     password,
-                //     name
-                // })
                 let res = await axios.post(`${this.clientUrl}/user/registration`, body)
                 resolve(res.data)
 

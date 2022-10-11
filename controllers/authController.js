@@ -4,7 +4,6 @@ const {createRefreshToken,createAccessToken ,validateEmail} = require('../utils/
 
 //without email verification registration
 exports.userRegisterController = async(req,res,next)=>{
-    // console.log('model in controller',req.app.locals.userModel); 
     const Users = req.app.locals.userModel;
     const {email,password,name} = req.body;
     // console.log(req.body);
@@ -17,13 +16,8 @@ exports.userRegisterController = async(req,res,next)=>{
                 message:'User already exists'
               });
          }
-            // const newUser = new Users({
-            //     email,
-            //     password: await bcrypt.hash(password,10),
-            //     name:name || email.split('@')[0]
-            // });
+            
             req.body.password= await bcrypt.hash(password,10);
-            // await newUser.save();
             const newUser =   await Users.create(req.body);
             res.status(201).json({
                 status:200,
