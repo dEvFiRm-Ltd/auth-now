@@ -53,7 +53,7 @@ exports.facebookLogin= async (req, res) => {
 
             await newUser.save()
             
-            const refresh_token = createRefreshToken({id: newUser._id},req.app.locals.refreshTokenSecret)
+            const refresh_token = createRefreshToken({id: newUser._id},req.app.locals.refreshTokenSecret,req.app.locals.refreshTokenTimeOut)
             // res.cookie('refreshtoken', refresh_token, {
             //     httpOnly: true,
             //     path: '/user/refresh_token',

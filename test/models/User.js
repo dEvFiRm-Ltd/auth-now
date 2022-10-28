@@ -6,6 +6,8 @@ const userSchema = new Schema({
         // require:[true,'Please Enter your Name '],
         trim:true
     },
+    firstName:String,
+    lastName: String,
     email: {
         type: 'string',
         require:[true,'Please Enter your Email '],
@@ -27,7 +29,10 @@ const userSchema = new Schema({
     provider:{
         type:String,
         default:'custom'
-    }
+    },
+    permissions:[{
+        type: String
+    }]
 
 },{
     timeStamp: true

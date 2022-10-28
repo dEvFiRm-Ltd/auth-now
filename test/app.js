@@ -1,3 +1,4 @@
+require('dotenv').config()
 const express = require('express');
 const app = express()
 const mongoose = require('mongoose');
@@ -21,24 +22,27 @@ const auth = new Auth({
     facebookAppSecret:process.env.FACEBOOK_APP_SECRET ,
     // accessTokenSecret,
     // refreshTokenSecret,
-
+    expiresIn : {
+        refreshToken:'7d',
+        accessToken:'7d'
+    }
 })
 
 
 
 // console.log('auth'+auth.userRegister());
 // console.log(auth)
-let {authUser,authAdmin} = auth
+let {authUser,authAdmin,accessPermission} = auth
 app.use('/user',auth.router(app)); 
 app.get('/', async(req, res) => { 
     // const Users = req.app.locals.userModel;
     res.send('authSdk')
 })
-app.get('/user1',authUser,(req, res)=>{
+app.get('/user1/ok',authUser,accessPermission,(req, res)=>{
     res.send('authManager')
 })
 
-mongoose.connect('mongodb+srv://LMHasib:LMShsb@cluster0.db2ry.mongodb.net/testSdk')
+mongoose.connect(process.env.DATABASE_URL)
 .then(() => {
     console.log('Connected to MongoDB');
     app.listen(5001, () => {

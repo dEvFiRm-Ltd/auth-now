@@ -56,7 +56,7 @@ module.exports = class Auth {
             //get  token
             try {
                 if (firstLogin) {
-                    let res = await axios.post(`${this.clientUrl}/user/refresh_token`, {
+                    let res = await axios.post(`${this.clientUrl}/user/access_token`, {
                         refreshToken: refreshToken
                     });
                     this.token = res.data.access_token;
@@ -136,4 +136,23 @@ module.exports = class Auth {
         
         
     }
+
+    //user permissions update
+    userPermissionUpdate(permissions) {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const res = await axios.patch(`${this.clientUrl}/user/update-user-permissions`,{permissions}, {
+                    headers: {
+                        Authorization: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzNWI1NTgyZTk1YTI0ZGZiOWMyOWE1MCIsImlhdCI6MTY2Njk1NDg0MiwiZXhwIjoxNjY3NTU5NjQyfQ.2HKhJiubvmGOprP8FMO5gAmTt7bvuT_QgweuL4J7Pr8'
+                    }
+                });
+                resolve(res.data)
+
+            } catch (err) {
+                reject(err)
+            }
+
+        })
+    }
+
 }

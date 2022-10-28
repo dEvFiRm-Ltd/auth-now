@@ -3,7 +3,10 @@ exports.getUserInfo= async (req, res) => {
     try {
         const user = await Users.findById(req.user.id).select('-password -facebookID -googleID')
 
-        res.json(user)
+        res.json({
+            status:200,
+            user
+        })
     } catch (err) {
         return res.status(500).json({msg: err.message})
     }

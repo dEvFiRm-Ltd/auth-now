@@ -31,7 +31,7 @@ exports.googleLogin = async(req, res) => {
             const isMatch = await bcrypt.compare(password, user.googleID)
             if(!isMatch) return res.status(400).json({msg: "Password is incorrect."})
 
-            const refresh_token = createRefreshToken({id: user._id},req.app.locals.refreshTokenSecret)
+            const refresh_token = createRefreshToken({id: user._id},req.app.locals.refreshTokenSecret,req.app.locals.refreshTokenTimeOut)
             res.cookie('refreshtoken', refresh_token, {
                 httpOnly: true,
                 path: '/user/refresh_token',
@@ -45,7 +45,7 @@ exports.googleLogin = async(req, res) => {
             user.provider= 'google'
             user.name = name
             await user.save();
-            const refresh_token = createRefreshToken({id: user._id},req.app.locals.refreshTokenSecret)
+            const refresh_token = createRefreshToken({id: user._id},req.app.locals.refreshTokenSecret,req.app.locals.refreshTokenTimeOut)
             res.cookie('refreshtoken', refresh_token, {
                 httpOnly: true,
                 path: '/user/refresh_token',
@@ -59,7 +59,7 @@ exports.googleLogin = async(req, res) => {
 
             await newUser.save()
             
-            const refresh_token = createRefreshToken({id: user._id},req.app.locals.refreshTokenSecret)
+            const refresh_token = createRefreshToken({id: user._id},req.app.locals.refreshTokenSecret,req.app.locals.refreshTokenTimeOut)
             res.cookie('refreshtoken', refresh_token, {
                 httpOnly: true,
                 path: '/user/refresh_token',

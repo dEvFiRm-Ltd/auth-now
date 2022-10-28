@@ -29,6 +29,9 @@ $ npm i auth-now
  - Admin check
  - Get user info
  - Logout functionality
+ 
+ - Dynamic Access Control  Authentication(from v2)
+
 
 > Note: `mongoose cors ` is required for using `auth-now`.
 
@@ -66,7 +69,10 @@ const userSchema = new Schema({
         type:String,
         default:'custom',
         enum : ["custom", "google", "facebook"]
-    }
+    },
+    permissions:[{ //if you  need to dynamically add permissions 
+        type: String
+    }]
 
 },{
     timeStamp: true
@@ -91,6 +97,10 @@ const auth = new Auth({
     facebookAppSecret:process.env.FACEBOOK_APP_SECRET ,
     // accessTokenSecret,
     // refreshTokenSecret,
+    expiresIn : {
+        refreshToken:'7d',
+        accessToken:'15m' //you can add it ('1s' or '1m' or '1h' or ' 1d )
+    }
 })
 
 app.use('/user',auth.router(app)); // This route name must be '/user'
@@ -104,12 +114,21 @@ app.listen(3000,()=>{
 
 # Middleware 
 ```js
-const {authUser,authAdmin} = auth
-```  
+const {authUser,authAdmin,accessPermission} = auth
+``` 
+
+### authUser
+This middleware used to verify authenticated users.
+
+### authAdmin
+This middleware used to verify the admin.(RBAC)
+
+### accessPermission
+This middleware used to dynamic access control if permitted by admin.( Using  'userPermissionUpdate()' this function admin can update user access permissions form frontend.)
 
 # Frontend  
 
-again install the package in frontend
+Again install the package in frontend
 > Note: again install the package in frontend.
 ### configuration
 ```js
@@ -122,23 +141,24 @@ const auth = new Auth({
 export default auth;
 ```
 ### All function:
-1.userRegistration(email,password,name)
+1.userRegistration({email,password,...})
 2.loginWithEmailPassword(email,password)
 3.userInfo()
 4.loginWithGoogle(response)
 5.loginWithFacebook(response)
 6.logout()
+7.userPermissionUpdate([..permissions])
 
-### some veritable:
+### some veritable for frontend:
 1.`clientUrl`
 2.`token`
 3.`user`
-### 1.userRegistration(email,password,name)
+### 1.userRegistration({email,password,...})
 This function for user create or registration .
 ```js
   const registerUser = async()=>{
         try {
-          let res = await auth.userRegistration({email,password}) //and you can add more fields by  this object pattern  just on remake this fields are also have to user model  
+          let res = await auth.userRegistration({email,password}) //and you can add more fields by  this object pattern  just one remark those fields are also have to user model  
         console.log(res);
         } catch (err) {
           console.log(err.response.data);
@@ -147,7 +167,7 @@ This function for user create or registration .
     }
 ```
 
-***you can add more fields by  this object pattern  just on remake this fields are also have to user model
+> Note: you can add more fields by  this object pattern  just one remark those fields are also have to user model
 
 ```js
     let res = await auth.userRegistration({email,password,firstName, lastName ,....ip,.. })
@@ -197,12 +217,28 @@ const responseFacebook = async(response)=>{
         
       } catch (error) {
         console.log(error.response.data);
+      }
      
 ```
 ### 6.logout()
 ```js
 const logout =async ()=>{
    auth.logout();
+}
+```
+
+
+### 7.userPermissionUpdate([...permissions])
+>note: If you add 'update-user-permissions' this permissions user can permitted to access control like admin 
+```js
+const userPermissionUpdate = async()=>{
+      try {
+        const res = await auth.userPermissionUpdate(['update-user-permissions','add-product','edit-product'])
+        console.log(res);
+        
+      } catch (error) {
+        console.log(error.response.data);
+      }
 }
 ```
 

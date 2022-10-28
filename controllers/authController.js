@@ -35,21 +35,20 @@ exports.userLoginController = async (req, res) => {
     const Users = req.app.locals.userModel;
 
     try {
+        
         const {email, password} = req.body
         const user = await Users.findOne({email})
         if(!user) return res.status(400).json({msg: "Invalid Credentials"})
 
         const isMatch = await bcrypt.compare(password, user.password)
         if(!isMatch) return res.status(400).json({msg: "Invalid Credentials"})
-
-        const refresh_token = createRefreshToken({id: user._id}, req.app.locals.refreshTokenSecret)
+        const refresh_token = createRefreshToken({id: user._id}, req.app.locals.refreshTokenSecret,req.app.locals.refreshTokenTimeOut)
         res.cookie('refreshtoken', refresh_token, 
         {
             httpOnly: true,
             path: '/user/refresh_token',
             maxAge: 7*24*60*60*1000 // 7 days
-        }
-        )
+        })
 
         res.json({msg: "Login success!",refreshtoken:refresh_token})
     } catch (err) {
@@ -66,7 +65,7 @@ exports.getAccessToken = async(req, res) => {
         jwt.verify(rf_token, req.app.locals.refreshTokenSecret, (err, user) => {
             if(err) return res.status(400).json({msg: "Please login now!"})
 
-            const access_token = createAccessToken({id: user.id}, req.app.locals.accessTokenSecret)
+            const access_token = createAccessToken({id: user.id}, req.app.locals.accessTokenSecret,req.app.locals.refreshTokenTimeOut)
             res.json({access_token})
         })
     } catch (err) {
